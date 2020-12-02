@@ -3,6 +3,7 @@
 `Web Exploitation` `HTTP` `Cookie`
 
 ---
+
 ## Learning Outcomes
 
 - Learn how the web works and what is http?
@@ -42,7 +43,7 @@ Mengaktifkan line tersebut adalah objektif dari task ini.
 
 ![b24c7cb5210478b8754c213d382a7582.png](./_resources/31bef68fc7cf4616afbe8791fc5f66f6.png)
 
-Selanjutnya, untukmelihat cookie yang tersimpan gunakan `ctrl+shift+i` atau `f12`, yaitu browser developer tools.
+Cookie yang tersimpan dapat dilihat menggunakan developer tools melalui kombinasi `ctrl+shift+i` atau `f12`.
 
 ![95eb0c9d1b87bdc65f00e47a13d51c05.png](./_resources/b2f3c6dcf09c4453b0ac0f946187569b.png)
 
