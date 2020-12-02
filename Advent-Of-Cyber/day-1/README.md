@@ -1,4 +1,4 @@
-# Day 1 | A Christmast Crisis
+# Day 1 | A Christmas Crisis
 
 `Web Exploitation` `HTTP` `Cookie`
 

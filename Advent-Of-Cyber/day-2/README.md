@@ -48,7 +48,7 @@ Berikut adalah list common uploads directory
 - /media
 - /resources
 
-File yang diupload berada pada directori /uploads, maka sekarang bisa mempersiapkan shell/backdoor web pada direktori tersebut.
+File yang diupload berada pada directori /uploads, selanjutnya adalah mempersiapkan shell/backdoor web pada direktori tersebut.
 
 Disini saya menggunakan webshell yang merupakaan bawaan dari Kali Linux.
 
