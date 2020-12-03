@@ -104,9 +104,9 @@ find / -type f 2>/dev/null | grep flag
 ![a6306e4a9eeaddec28e4128fd6c846b6.png](./_resources/63d77db614f4487590f9840055323679.png)
 
 
-## Vulnerability Analysis	
+## Vulnerability Analysis & Mitigation
 
-### Bypass upload filter
+### Bypass upload filter 
 
 /var/www/html/upload.php
 ```
@@ -153,7 +153,7 @@ find / -type f 2>/dev/null | grep flag
 ?>
 ```
 
-Yang membuat kita bisa melakukan bypass adalah line berikut
+Baris code berikut yang membuat shell yang di upload lolos.
 
 ````
 $ext  = trim(explode(".", $data["name"])[1], "\n");
@@ -178,7 +178,7 @@ $ext  = trim(explode(".", $data["name"])[1], "\n");
 ```
 Nama shell.php dipecah/explode dengan titik sebagai pemisahnya menjadi
 
-- shell <-- $data["name"][0] -
+- shell <-- $data["name"][0] 
 - php   <-- $data["name"][1] - diambil dan tidak lolos filter
 
 Maka ketika filename diberi nama shell.jpg.php
@@ -187,8 +187,17 @@ Maka ketika filename diberi nama shell.jpg.php
 - jpg   <-- $data["name"][1] - diambil dan lolos filter
 - php   <-- $data["name"][2] - tidak dianggap!
 
+Berikut hasilnya 
+
+![vuln.png](./_resources/vuln.png)
+
+Contoh mitigasi 
+
+https://stackoverflow.com/questions/14789206/if-statement-to-filter-file-extensions
+
 ### Remote Code Execution
 
+Berikut adalah cara memitigasi agar file2 php pada direktori tertentu tidak dapat di eksekusi 
 
 https://lxadm.com/Apache:_disabling_PHP_execution_in_selected_directories
 http://docs.php.net/manual/en/apache.configuration.php#ini.engine
