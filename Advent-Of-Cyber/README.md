@@ -10,7 +10,7 @@ Starting Date: Tue 1st, December 2020
 Task Release Time: Between 7pm and 8pm GMT  
 Ending Date: Thu 26th, December  
 
-## What you will learn?
+## What You Will Learn and Earn?
 
 Tasks in Advent of Cyber are divided into the following categories :
 
@@ -20,8 +20,7 @@ Tasks in Advent of Cyber are divided into the following categories :
 - Scripting
 - Reverse Engineering
 - Defensive Blue Teaming
-
-And a Certificate of Completion.
+- a Certificate of Completion.
 
 ## The Sponsors
 
@@ -32,7 +31,7 @@ This event is supported by :
 - INE
 - TryHackMe!
 
-## Where I can Join
+## Where I Can Join?
 
 Join on : https://tryhackme.com/room/adventofcyber2
 
