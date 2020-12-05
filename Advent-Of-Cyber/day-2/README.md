@@ -33,7 +33,8 @@ Tertulis cara untuk mengaksesnya adalah mengirimkan *request* dengan parameter `
 >- Metode GET request : data yang dikirim terlihat pada URL berupa parameter
 >   - Setiap nilai parameter dipisah dengan &
 
-Maka yang perlu dilakukan adalah menambahkan `?id=ODIzODI5MTNiYmYw` pada alamat URLnya :
+Maka yang perlu dilakukan adalah menambah `?id=ODIzODI5MTNiYmYw` pada alamat URLnya :
+
 ```
 http://10.10.43.11/?id=ODIzODI5MTNiYmYw
 ```
