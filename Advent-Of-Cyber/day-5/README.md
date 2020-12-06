@@ -39,7 +39,7 @@ $username = '
 $result = mysql_query("SELECT * FROM users WHERE username='''");
 ```
 
-Dari sini writeup akan mengikuti Challenge yang diberikan, yaitu :
+Setelah sedikit pengenalan SQLi diatas, writeup akan mengikuti Challenge yang diberikan, yaitu: 
 
 ```
 Visit the vulnerable application in Firefox, find Santa's secret login panel and bypass the login. Use some of the commands and tools covered throughout today's task to answer Questions #3 to #6. 
@@ -72,7 +72,7 @@ Hasilnya :
 
 ![518302d9e5b9b10a1adf7680a4a287b3.png](./_resources/e0344168037247eda7eacbfb76322146.png)
 
-Selanjutnya akan digunakan tools bernapa SQLMap untuk melakukan injeksi kueri sql secara otomatis.
+Selanjutnya akan digunakan tools bernama SQLMap untuk melakukan injeksi kueri sql secara otomatis.
 
 Berikut ini adalah contoh request yang diintersep oleh BurpSuite, disimpan dengan nama **req**.
 ```
