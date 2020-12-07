@@ -1,0 +1,52 @@
+# Day 6 | Be careful with what you wish on a Christmas night
+
+`Web Exploitation` `Cross-Site Scripting` `XSS`
+
+---
+
+## Learning Outcomes
+
+- Understanding what is XSS?
+- Types of XSS Attack
+- Using OWASP ZAP
+
+## Summary
+
+1. Use OWASP ZAP
+
+## Write up
+
+Pada task kali ini diberikan suatu halaman web dengan dua *input field* dan tidak ada flag.
+ 
+Di field dengan tombol "Wish", ketika tag `<p></p>` di-*submit*, halaman page tersebut menambahkan suatu baris kosong, seperti berikut:
+
+![567f25a692dd62484d12c9199d61e89e.png](./_resources/c6d44e7988534eaaaa41af02de3289d5.png)
+
+Kedua baris tersebut masih ada bahkan setelah di refresh, artinya web ini memiliki XSS *vulnerability* yaitu tipe *stored* XSS.
+
+![69a913391527667110456e0325ad9229.png](./_resources/ac38296cea8d481f9214125cd483d350.png)
+
+Sedangkan pada input field "Search query", *vulnerability*-nya adalah *reflected* XSS.
+
+![cd1fd1d48cfaa9e2d92b3bc208925711.png](./_resources/a2570d59bfb74d67827091f09807e8ef.png)
+
+Selanjutnya, gambar berikut adalah hasil otomatisasi dengan menggunakan OWASP ZAP. Cara instalasi ada diakhir writeup menggunakan docker.
+
+![3dec07a2a0367abea1ceafcf14ded69a.png](./_resources/c6308e82322f4f40a64cba699e21c185.png)
+
+## OWASP ZAP Installation on Docker
+
+1. Pull image
+```
+docker pull owasp/zap2docker-stable
+```
+
+2. Run container
+```
+docker run -u zap -p 8080:8080 -p 8090:8090 -i owasp/zap2docker-stable zap-webswing.sh
+```
+
+3. Open at `http://localhost:8080/zap/`
+
+Reference :
+https://www.zaproxy.org/docs/docker/about/
