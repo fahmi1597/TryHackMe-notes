@@ -1,88 +1,101 @@
 # Day 1 | A Christmas Crisis
 
-`Web Exploitation` `HTTP` `Cookie`
+`TryHackMe` `Web Exploitation` `Security` `HTTP` `Cookie`
 
 ---
 
 ## Learning Outcomes
 
-- Learn how the web works and what is http?
-- What are website cookies?
-- Using CyberChef 
-- Escalation of Privilege using cookies
+Hasil pembelajaran 
+
+- Memahami bagaimana alur bekerja web 
+- Memahami protokol HTTP beserta metode *request*nya.
+- Mengerti apa itu dari website cookies
+- Mengetahui cara menggunakan *tool* CyberChef
+- Menggunakan cookies untuk menaikkan hak akses (*Privilege Escalation*)
 
 ## Summary
 
 tldr;
-- Register akun lalu login
-- Periksa stored cookie value
-- Decode cookie dari hex, hasil decode berupa json 
-- Hanya bagian {"username":"value"} yang dinamik.
-- Privilege escalation dengan meng*encode* ulang cookie
-- Get the flag
 
-## Write up
+- Akses IP mesin melalui browser, buat akun dan login
+- Periksa cookie yang tersimpan lalu decode menggunakan [CyberChef](https://gchq.github.io/CyberChef/)
+- Hasil decodenya dalam bentuk JSON dan hanya bagian *username* yang berubah/dinamis.
+- Ubah bagian *username* dari cookie untuk Privilege Escalation.
+- Hijaukan panel kontrol untuk mendapatkan flag.
 
-Tampilan web dari mesin yang di deploy :
+
+## Task Story
+
+> *"The Best Festival Company's brand new OpenVPN server has been hacked. This is a crisis!*  
+>
+> *The attacker has damaged various aspects of the company infrastructure -- including using the Christmas Control Centre to shut off the assembly line!*
+>
+> *It's only 24 days until Christmas, and that line has to be operational or there won't be any presents! You have to hack your way  back into Santa's account (blast that hacker changing the password!) and getting the assembly line up and running again, or Christmas will be ruined!"*
+
+## Write-up
+
+Tampilan web dari mesin yang di deploy 
 
 ![6f48785061d2c5b00e6038eb0d7c4e65.png](./_resources/d6fd84485b614c858eec4fe50b618753.png)
 
 
-### What is the name of the cookie used for authentication?
+### Q1 : What is the name of the cookie used for authentication?
 
-Untuk mengetahui cookie yang digunakan untuk otentikasi, maka registrasi diperlukan.
+Registrasi diperlukan untuk mengetahui cookie yang digunakan saat otentikasi (login).
 
-- User `fahmi `  
-- Password `fahmi`
+> username:password <-> fahmi:fahmi
 
 ![715f2fd701d6fe7560b65f15f9f1ecff.png](./_resources/633ec0092c734809b6ec32c15c407753.png)
 
-Setelah login, ditampilkan sebuah dashboard untuk melakukan command control dan linenya dalam keadaan mati.
-
-Mengaktifkan line tersebut adalah objektif dari task ini.
+Tampilan setelah login
 
 ![b24c7cb5210478b8754c213d382a7582.png](./_resources/31bef68fc7cf4616afbe8791fc5f66f6.png)
 
-Cookie yang tersimpan dapat dilihat menggunakan developer tools melalui kombinasi `ctrl+shift+i` atau `f12`.
+Mengaktifkan panel control tersebut adalah objektif dari task ini.
+
+Cookie yang tersimpan dapat dilihat menggunakan Developer Tools melalui kombinasi `ctrl+shift+i` atau `f12`. Aplikasi browser yang digunakan disini adalah Firefox.
 
 ![95eb0c9d1b87bdc65f00e47a13d51c05.png](./_resources/b2f3c6dcf09c4453b0ac0f946187569b.png)
 
-### In what format is the value of this cookie encoded?
+Nama cookie yang digunakan adalah `auth`.
 
-Dengan menggunakan CyberChef --> Auto, format cookienya adalah hexadecimal.
+### Q2 : In what format is the value of this cookie encoded?
 
-### Having decoded the cookie, what format is the data stored in?
+Dengan menggunakan CyberChef --> Auto, format cookie yang digunakan adalah `hexadecimal`.
 
-Masih menggunakan tools CyberChef
-https://gchq.github.io/CyberChef/#recipe=From_Hex('Auto')
+### Q3 : Having decoded the cookie, what format is the data stored in?
 
-Input :
+Masih menggunakan CyberChef.
+
+Input yang diberikan :
+
 ```
 7b22636f6d70616e79223a22546865204265737420466573746976616c20436f6d70616e79222c2022757365726e616d65223a226661686d69227d
 ```
 
-Output :
+Output yang didapatkan 
 ```
 {"company":"The Best Festival Company", "username":"fahmi"}
 ```
 
+Berdasarkan output yang didapatkan, format data tersebut menggunakan format `JSON`.
+
 ### What is the value of Santa's cookie?
 
-Setelah melakukan dua kali register, ternyata hanya bagian username yang berubah. 
+Setelah melakukan dua kali register, ternyata hanya bagian `username` yang berubah. 
 
-Maka, hal yang bisa dicoba adalah merubah data output dengan username yang berbeda setelah itu encode kembali sebagai hex.
-
-
+Berdasarkan hal ini, kita dapat mencoba merubah bagian data `{"username" : "fahmi"}` menjadi `{"username" : "santa"}` lalu encode kembali ke format `hexadecimal`.
 
 ![d029bcc35173406eb7ad4dbf2ad65850.png](./_resources/d029bcc35173406eb7ad4dbf2ad65850.png)
 
 
-Hasil :
+Berikut hasil yang didapatkan
 
 ```
 7b22636f6d70616e79223a22546865204265737420466573746976616c20436f6d70616e79222c2022757365726e616d65223a226661686d69227d
 ```
 
-Ganti value yang ada pada browser dengan value baru yang di generate melalui CyberChef
+Buka kembali Developer Tools untuk merubah value dari cookie yang tersimpan pada browser dengan value yang dibuat menggunakan CyberChef.
 
 ![57825f555931d68ed018918e880014cb.png](./_resources/b7b94bc5c88e44038832055e598a60a3.png)

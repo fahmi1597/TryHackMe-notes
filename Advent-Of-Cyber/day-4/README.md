@@ -1,30 +1,56 @@
 # Day 4 |  Santa's watching
 
-`Web Exploitation` `Fuzzing`
+`TryHackMe` `Web Exploitation` `Security` `Fuzzing`
 
 ---
 
 ## Learning Outcomes
 
-- Understand the use of fuzzing.
-- Understand how a specific error condition can be abused.
+Hasil pembelajaran 
+
+- Mengerti arti dari teknik fuzzing.
+- Memahami bahwa sebuah kondisi error dapat memicu penyalahgunaan/clue bagi *hacker*
 
 ## Summary
+
+tldr;
 
 - Use directory bruteforce tools to find a hidden directory
 - Use wfuzz to get the correct parameter value.
 
-## Write up
+## Story 
+
+> *We're going to be taking a look at some of the fundamental tools used in web application testing. You're going to learn how to use Gobuster to enumerate a web server for hidden files and folders to aid in the recovery of Elf's forums. Later on, you're going to be introduced to an important technique that is fuzzing, where you will have the opportunity to put theory into practice.*
+>
+>*Our malicious, despicable, vile, cruel, contemptuous, evil hacker has defaced Elf's forums and completely removed the login page! However, we may still have access to the API. The sysadmin also told us that the API creates logs using dates with a format of YYYYMMDD*
+
+## Write-up
 
 Mesin yang di deploy adalah sebuah web yang menurut cerita dari "*event*" ini, telah di *deface*.
 
 ![2699b863cd80c548dfcfabb18e71b743.png](./_resources/f00827b5f7b34ff49eb0750cd392e556.png)
 
-*Challenge* kali ini adalah menemukan *hidden directory* dengan cara melakukan *brute-force* dengan *wordlist*.
 
-Disini *tools* yang digunakan adalah [gobuster](https://github.com/OJ/gobuster), 
+### Challenge
 
-> Cara instalasi disertakan diakhir writeup.
+> Deploy both the instance attached to this task (the green deploy button) and the AttackBox by pressing the blue "Start AttackBox" button at the top of the page. After allowing 5 minutes, navigate to the website (10.10.73.237) in your AttackBox browser.
+>
+> It is up to you to decide if you wish to create the wordlist yourself or use a larger wordlist located in /opt/AoC-2020/Day-4/wordlist on the AttackBox. The wordlist is also available for download if you are using your own machine.
+>
+> In summary, use the tools and techniques outlined in today's advent of cyber; search for the API, find the correct post and bring back Elf's forums!
+
+
+### Q1 : Given the URL "http://shibes.xyz/api.php", what would the entire wfuzz command look like to query the "breed" parameter using the wordlist "big.txt" (assume that "big.txt" is in your current directory)
+
+Note: For legal reasons, do not actually run this command as the site in question has not consented to being fuzzed!
+
+```
+wfuzz -c -z file,big.txt http://shibes.xyz/api.php?breed=FUZZ
+```
+
+### Q2 : Use GoBuster (against the target you deployed -- not the shibes.xyz domain) to find the API directory. What file is there?
+
+> Cara instalasi gobuster disertakan diakhir writeup.
 
 ```
 gobuster dir -u http://10.10.251.28/ -w /opt/SecLists/Discovery/Web-Content/raft-large-directories.txt -t 10
@@ -37,17 +63,14 @@ gobuster dir -u http://10.10.251.28/ -w /opt/SecLists/Discovery/Web-Content/raft
 Ditemukan direktori `/api` dengan code 302 (redirect) dan setelah dikunjungi terdapat file `site-log.php`.
 
 
-
 ![129fa9228b6c6e619e19685458b8399d.png](./_resources/f6273ccf7d4d44d08a217a40efaa76dc.png)
+
+
+### Q3 : Fuzz the date parameter on the file you found in the API directory. What is the flag displayed in the correct post?
 
 Menurut challengenya, file ini memiliki parameter `date`, namun value yang diinput harus tepat. Diketahui juga format parameter `date` adalah YYYYMMDD. 
 
-
-
-
-Disini teknik fuzzing dapat digunakan menggunakan tools wfuzz bawaan dari Kali Linux.
-
-> Wordlist disedikan oleh TryHackMe dalam format YYYYMMDD
+Disini saya menggunakan tools wfuzz bawaan dari Kali Linux untuk melakukan fuzzing pada parameter `date` dari `site-log.php` menggunakan wordlist yang disediakan oleh TryHackMe dalam format YYYYMMDD.
 
 ```
 wfuzz -c -z file,wordlist --hc 404 http://10.10.251.28/api/site-log.php?date=FUZZ
@@ -110,7 +133,6 @@ Namun disini saya menggunakan curl.
 ```
 apt install golang
 ```
-
 
 **Instalation:**
 

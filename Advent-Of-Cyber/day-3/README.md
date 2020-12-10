@@ -1,25 +1,37 @@
 # Day 3 |  Christmas Chaos
 
-`Web Exploitation` `Authentication Bypass` `Bruteforce`
+`TryHackMe` `Web Exploitation` `Security` `Authentication Bypass` `Bruteforce`
 
 ---
+
 ## Learning Outcomes
 
-- Understanding Authentication
-- Understand the use of default credentials and why they're dangerous
-- Bypass a login form using BurpSuite
+Hasil pembelajaran 
+
+- Mengerti perbedaan antara Authentication dan Authorization
+- Mengetahui penggunaan dari default credentials.
+- Brute force dan bypass login page dengan Burp Suite
 
 ## Summary
 
-- Intercept login request using Burp suite
-- Send the intercepted request to intruder
-- Choose attack type and set the payload
-- Identify the length or the status response to find a successful login.
+tldr;
 
+- Intersep login request dengan Burp Suite
+- Gunakan default credential umum yang ada pada task ini
+- Lakukan brute force dengan tipe serangan cluster bomb menggunakan intruder
+- Identifikasi login yang sukses berdasarkan HTTP Status Code atau Length dari HTTP Response
 
-## Write up
+## Story
+
+>*McSkidy is walking down the corridor and hears a faint bleeping noise, Beep.... Beep.... Beep... as McSkidy gets closer to Sleigh Engineering Room the faint noise gets louder and louder.. BEEP.... BEEP.... Something is clearly wrong! McSkidy runs to the room, slamming open the door to see Santa's sleighs control panel lite up in red error messages! "Santa sleigh! It's been hacked, code red.. code red!" he screams as he runs back to the elf security command center.*
+>
+>*Can you help McSkidy and his team hack into Santa's Sleigh to re-gain control?*
+
+## Write-up
 
 Mesin yang di deploy dari task pada room ini masih berupa sebuah web server.
+
+### Q1 : What is the flag?
 
 Disini, saya dalam posisi sudah mempersiapkan Burp suite untuk melakukan intersep request yang dilakukan pada login page berikut.
 
@@ -59,7 +71,13 @@ Setelah payload selesai dibuat, maka attack dapat mulai.
 
 Berhasil atau tidaknya serangan menggunakan payload tersebut dapat diidentifikasi melalui `Status` atau `Length`
 
-`Status` adalah kode status dari HTTP Response, sedangkan `Length` adalah isi dari http response. Berikut untuk lebih jelasnya
+`Status` adalah kode status dari HTTP Response, sedangkan `Length` adalah isi dari http response. `Status 200` atau perubahan pada Length dapat berarti sesuatu. 
+
+![f66e804ad64c64d19d6981dc9.png](./_resources/f66e804ad64c64d19d6981dc9.png)
+
+Berdasarkan gambar di atas, response yang diberikan mengandung `status 302` tetapi lengthnya tidak sama dengan yang lain. Hal ini bisa diartikan bahwa `admin:12345` adalah username dan password yang valid.
+
+Lihat gambar berikut untuk lebih jelasnya.
 
 ![c7c1a47f05453bc1bbe1f0353be42f18.png](./_resources/e514676182984b968b840a1fd3cc9756.png)
 
@@ -67,6 +85,7 @@ Flag didapatkan setelah berhasil melakukan login
 
 ![91bb0dff46511a1e946b8aafdcdd7664.png](./_resources/15a1e606f28949a6b20c64a0f73bd218.png)
 
-## Mitigation
+Namun ternyata dengan mengakses langsung `/tracker` tanpa username dan password, juga adalah `status 200`.
 
-Sebaiknya data-data dummy yang umumnya digunakan pada dev environment usahakan untuk dihapus dan default credentialsnya diganti sebelum deploy ke prod environment.
+![c64d19d6981dc9b968b840a1fd3cc9756.png](./_resources/c64d19d6981dc9b968b840a1fd3cc9756.png)
+

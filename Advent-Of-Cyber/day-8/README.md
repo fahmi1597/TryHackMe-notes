@@ -1,8 +1,6 @@
-Day 8 | What's Under the Christmas Tree?
-
 # Day 8 | What's Under the Christmas Tree?
 
-`Networking` `Nmap`
+`TryHackMe` `Networking` `Nmap`
 
 ---
 
@@ -12,6 +10,8 @@ Day 8 | What's Under the Christmas Tree?
 - Defense againts Nmap scans
 
 ## Summary
+
+tldr;
 
 - Run this script to answer the question
 ```
