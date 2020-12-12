@@ -22,25 +22,33 @@ nmap --min-rate 10000 -O -A -oN scan-2 10.10.73.227 -v
 
 Sama seperti kemarin, task kali ini modelnya step-by-step, tidak ada flag, jadi kayaknya kurang *sreg* kalau dibilang writeup.
 
-Intinya kita pada task kali ini adalah coba-coba(?) dengan Nmap.
+Intinya, pada task kali ini adalah melakukan eksperimen dengan opsi-opsi yang ada pada Nmap.
 
-> *BAIKNYA JANGAN DIGUNAKAN PADA WEBSITE PUBLIK TANPA IZIN JUGA BISA MENYEBABKAN WEBSITE YANG DIPINDAI DOWN*
+> *BAIKNYA JANGAN DIGUNAKAN PADA WEBSITE PUBLIK TANPA IZIN KARENA BISA MENYEBABKAN WEBSITE YANG DIPINDAI DOWN*
 
+## Story 
+
+> After a few months of probation, intern Elf McEager has passed with glowing feedback from Elf McSkidy. During the meeting, Elf McEager asked for more access to The Best Festival Company's (TBFC's) internal network as he wishes to know more about the systems he has sworn to protect.
+>
+> Elf McSkidy was reluctant to agree. However, after Elf McEager's heroic actions in recovering Christmas, Elf McSkidy soon thought this was a good idea. This was uncharted territory for Elf McEager - he had no idea how to begin finding out this information for his new responsibilities. Thankfully, TBFC has a wonderful up-skill program covering the use of Nmap for ElfMcEager to enrol in.
 ### Challenge
 
 *Deploy and use Nmap to scan the instance attached to this task. Take a note of the IP address that you will need to scan: (MACHINE_IP) and enumerate it for Elf McEager!
 Optional bonus: As a result of Elf McEager managing to recover christmas in "Day 8 - The Grinch Really Did Steal Christmas", TBFC's website has been restored for all the elves to visit. Can you find it? I hear it's quite the read... You must add10.10.73.227 tbfc.blog to your /etc/hosts file*
 
 
-#### When was Snort created?
+### Q1 : When was Snort created?
 
-Google : 1998
+Berdasarkan hasil pencarian google, Snort dibuat pada tahun `1998`.
 
-#### Using Nmap on 10.10.73.227, what are the port numbers of the three services running?  (Please provide your answer in ascending order/lowest -> highest, separated by a comma)
+### Q2 : Using Nmap on 10.10.73.227, what are the port numbers of the three services running?  (Please provide your answer in ascending order/lowest -> highest, separated by a comma)
+
 Untuk menjawab pertanyaan ini dan dua pertanyaan dibawahnya, saya menggunakan dengan satu kali pindai.
+
 ```
 nmap -sC -sV -A --min-rate 10000 -oN initial-scan 10.10.73.227
 ```
+
 Hasilnya :
 ```
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-12-08 15:29 EST
@@ -72,11 +80,12 @@ HOP RTT       ADDRESS
 OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 Nmap done: 1 IP address (1 host up) scanned in 101.00 seconds
 ```
-#### Use Nmap to determine the name of the Linux distribution that is running, what is reported as the most likely distribution to be running?
 
-Ubuntu!
+### Q3 : Use Nmap to determine the name of the Linux distribution that is running, what is reported as the most likely distribution to be running?
 
-#### Use Nmap's Network Scripting Engine (NSE) to retrieve the "HTTP-TITLE" of the webserver. Based on the value returned, what do we think this website might be used for?
+Berdasarkan hasil nmap scan pada Q2, maka jawabannya adalah `Ubuntu`.
+
+### Q4 : Use Nmap's Network Scripting Engine (NSE) to retrieve the "HTTP-TITLE" of the webserver. Based on the value returned, what do we think this website might be used for?
 
 Webnya digunakan untuk blog.
 
