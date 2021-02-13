@@ -1,5 +1,3 @@
-04 - XML External Entity
-
 # XML External Entity (XXE)
 
 Note:

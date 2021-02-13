@@ -1,5 +1,3 @@
-03 - Sensitive Data Exposure
-
 # Sensitive Data Exposure
 
 Note:

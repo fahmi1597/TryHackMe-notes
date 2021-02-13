@@ -1,5 +1,3 @@
-02 - Broken Authentication
-
 # Broken Authentication
 Notes:
 

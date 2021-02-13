@@ -1,6 +1,6 @@
 # TryHackMe Writeups
 
-This repository contains my writeups from TryHackMe rooms.
+This repository contains my notes and writeups of TryHackMe rooms.
 
 What is TryHackMe?  
 
