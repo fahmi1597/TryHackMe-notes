@@ -13,7 +13,7 @@ It might be possible an attacker could just change the id from 1000 to 0.
 
 `http://example.com/home?id=0`
  
-## Practice
+## Practical 
  
 ### Insecure Direct Object Reference
  
@@ -31,6 +31,6 @@ http://example.com/username/file?fileId=2820 -> thesis.pdf
 to
 http://example.com/username/file?fileId=100 -> alloreillybookspirated.pdf
 
-## Question
+## Questions
 
 ![cfddaab8b84e554a1ef385a1a5f62afd.png](./_resources/e6e645e6249a4c86b055afb512a38354.png)

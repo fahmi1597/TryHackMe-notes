@@ -87,7 +87,7 @@ Example payloads:
 <root>&read;</root>
 ```
 
-## Practice
+## Practical 
 
 Payload 1
 ![2261fcc309d3f09b8b65e0dd99209572.png](./_resources/870c15daeee1430baebee8495b4d87ef.png)
@@ -109,7 +109,7 @@ Payload 2: Read SSH key
 ![c2cd7114f3cae63840211ecf2f92a5d6.png](./_resources/e97fedec4521426595e39e245f2936bb.png)
 
 
-## Question
+## Questions
 
 ### XML
 ![8ce58954700802ca5f8dd2efcd3f45d0.png](./_resources/45e03beafc3347fca6b5a8d64921ca15.png)
