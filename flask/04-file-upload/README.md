@@ -24,3 +24,6 @@ Html:
     <input type="submit">
   </form>
 ```
+
+### Next
+[Flask injection](../05-Flask-injection/README.md)

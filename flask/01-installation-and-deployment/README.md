@@ -27,7 +27,7 @@ Run/deploy
 
 ### Next
 
-[Basic syntax and routing](02-basic-syntax/README.md)
+[Basic syntax and routing](../02-basic-syntax/README.md)
 
 ## Questions
 

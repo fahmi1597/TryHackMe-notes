@@ -17,7 +17,7 @@ This route the web root directory to hello_world() function and return a 'Hello,
 
 ### Next
 
-[HTTP Methods and Template Rendering](03-HTTP-methods-and-template-rendering/README.md)
+[HTTP Methods and Template Rendering](../03-HTTP-methods-and-template-rendering/README.md)
 
 ## Questions
 
