@@ -1,7 +1,7 @@
 # TryHackMe - OWASP Top 10
-  
-Practical Task:  
-  
+
+## Tasks
+
 - [x] Injection
 - [x] Broken Authentication
 - [x] Sensitive Data Exposure
@@ -12,3 +12,7 @@ Practical Task:
 - [x] Insecure Deserialization 
 - [x] Components with Known Vulnerabilities
 - [x] Insufficent Logging & Monitoring
+
+## Skills Learned
+
+- OWASP TOP 10

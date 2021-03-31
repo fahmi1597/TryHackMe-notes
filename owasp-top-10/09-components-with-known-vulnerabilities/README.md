@@ -11,19 +11,24 @@ Note:
 
 ![6d8543535ba6a10f4cfcd162db198416.png](./_resources/bb0eff273442421b9ede04ff6990dc71.png)
 
-## Gathering information
+### Gathering information
 
 First, let's take a look into the footer section
 ![7023cf26eb220d34db0f3870b517b7a5.png](./_resources/ab6bd23dbb27472b8a3f91b58ed60079.png)
 
-projectworlds - is the developers
-2017 - probably year of released/made.
+Note:
+- `projectworlds` - is the developers  
+- `2017` - probably year of software release/made.
 
 It's a free software.
 
 https://projectworlds.in/free-projects/php-projects/online-book-store-project-in-php/
 
-We can logged in with the default username and password `admin@admin.com:admin`
+We can login with the default username and password   
+
+- username : `admin@admin.com`
+- password : `admin`
+  
 
 ![90793ca4b5fc5cdec718b7dd63ed9e5a.png](./_resources/d6d7b1d7ed4346018743a19bdded367a.png)
 
@@ -32,6 +37,7 @@ exploitdb search results
 ![671b74aad336b487b5951d39500e1a68.png](./_resources/7a63b51c0c344e078fe804c1629f68fa.png)
 
 Let's see how we can fix this.
+
 ![080b96973537ae3c94b259ab86b5df2b.png](./_resources/170bc9d0995f4fcdaba63ec06c1f053b.png)
 
 But since the webshell was already uploaded
