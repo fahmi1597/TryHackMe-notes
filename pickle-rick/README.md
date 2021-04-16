@@ -1,19 +1,19 @@
 # TryHackMe - Pickle Rick
 
-## Tasks
-
-- [x] Pickle Rick 
+A Rick and Morty CTF. Help turn Rick back into a human!
 
 ## Skills Learned
 
-- Common enumeration (port scan, directory brute force, robots.txt)
-- 
+- Common enumeration 
+  - Inspecting Page Sources
+  - Directory Brute Force
+- Use of alternative binary to file content
 
----
+# Tasks
 
-# TASK 1: Pickle Rick
+## Pickle Rick
 
-### Web technologies
+### Identify Web technologies
 
 - Web server: apache
 - Language used: php
@@ -21,25 +21,32 @@
 
 ![0f5120880538a5288fafb8d472bd36c2.png](./_resources/110c9bf494a1466ab370695b5a07502f.png)
 
-### Port scans
+### Page Source Inpsection
 
-![51a707b06ae93fa028c19150d3251994.png](./_resources/dea558e3950a4c4eaea9d8574b51b656.png)
-
-### Page source inspect
+Undeleted comment on HTML codes.
 
 ![ad5a79a65ee60c9fcaa8d32d74484165.png](./_resources/2874c8ffc030452196bd87321e69e0fc.png)
 
-### Directory brute force
+### Directory Brute Force
 
-```
+Finding hidden web path/directory
+
+```bash
 gobuster dir -u http://10.10.240.27/ -w raft-large-directories.txt -x php,html,txt -t 20
 ```
 
 ![af1d462c3da8cbef29b65056fae4cf54.png](./_resources/f4976eae470c4d8ca9810b7428a5d842.png)
 
+```bash
+$ curl -s http://10.10.240.27/robots.txt
+Wubbalubbadubdu
+```
+
+
+
 ### Access on `/portal.php`
 
-R1ckRul3s:Wubbalubbadubdub
+`R1ckRul3s:Wubbalubbadubdub`
 
 
 ![7806e0f6a49985e2c672ad65716c9530.png](./_resources/075bde3fdb274d8d84d1cfd70177931e.png)

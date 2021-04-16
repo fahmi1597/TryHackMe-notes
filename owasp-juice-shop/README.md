@@ -1,6 +1,16 @@
 # TryHackMe - OWASP Juice Shop
 
-## Practical Task
+## Skills Learned
+
+5 of OWASP Top 10 vulnerabilities:
+
+- Injection
+- Broken Authentication
+- Sensitive Data Exposure
+- Broken Access Control
+- Cross-Site Scripting XSS
+
+## Tasks
 
 - [x] [Let's go on an adventure!](01_Lets-go-on-an-adventure!.md)
 - [x] [Inject the juice](02_inject-the-juice.md)
@@ -9,11 +19,4 @@
 - [x] [Who's flying this thing?](05_whos-flying-this-thing.md)
 - [x] [Where did that come from?](06_where-did-that-come-from.md)
 
-## Skills Learned
-5 of OWASP Top 10 vulnerabilities:
-
-- Injection
-- Broken Authentication
-- Sensitive Data Exposure
-- Broken Access Control
-- Cross-Site Scripting XSS
+- 

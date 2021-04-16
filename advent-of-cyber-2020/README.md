@@ -10,7 +10,7 @@ Starting Date: Tue 1st, December 2020
 Task Release Time: Between 7pm and 8pm GMT  
 Ending Date: Thu 26th, December  
 
-## What You Will Learn and Earn?
+## What Will You Learn and Earn?
 
 Tasks in Advent of Cyber are divided into the following categories :
 

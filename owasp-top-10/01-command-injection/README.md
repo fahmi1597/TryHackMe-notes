@@ -1,5 +1,3 @@
-01 - Command Injection
-
 # Command Injection
 Notes:
 Active command injection returns the reponse, visible in user.

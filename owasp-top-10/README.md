@@ -1,5 +1,9 @@
 # TryHackMe - OWASP Top 10
 
+## Skills Learned
+
+- OWASP TOP 10
+
 ## Tasks
 
 - [x] Injection
@@ -12,7 +16,3 @@
 - [x] Insecure Deserialization 
 - [x] Components with Known Vulnerabilities
 - [x] Insufficent Logging & Monitoring
-
-## Skills Learned
-
-- OWASP TOP 10
