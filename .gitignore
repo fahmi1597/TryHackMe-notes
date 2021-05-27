@@ -1,0 +1,8 @@
+.obsidian/
+.vscode/
+files/
+
+*.json
+*.zip
+*.exe
+*.pcap

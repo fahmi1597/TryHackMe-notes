@@ -1,6 +1,6 @@
 # TryHackMe Notes
 
-This repository contains my documentation or notes for TryHackMe rooms (labs, ctf, networks)
+This repository contains my documentation and notes for TryHackMe rooms.
 
 ### What is TryHackMe?  
 
