@@ -15,7 +15,6 @@ https://github.com/bkimminich/juice-shop/blob/master/routes/login.js
 We can interfere the query by adding `'--`
 ```
 SELECT * FROM Users WHERE email = 'valid@mail.com'--|| ''}' 
-
 ```
 
 ### Logged in as admin

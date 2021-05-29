@@ -7,7 +7,7 @@ A Rick and Morty CTF. Help turn Rick back into a human!
 - Common enumeration 
   - Inspecting Page Sources
   - Directory Brute Force
-- Use of alternative binary to file content
+- Use of alternative binary to read file content
 
 # Tasks
 
@@ -21,7 +21,7 @@ A Rick and Morty CTF. Help turn Rick back into a human!
 
 ![0f5120880538a5288fafb8d472bd36c2.png](./_resources/110c9bf494a1466ab370695b5a07502f.png)
 
-### Page Source Inpsection
+### Inspection Page Source
 
 Undeleted comment on HTML codes.
 
