@@ -1,17 +1,28 @@
-# THM: Investigating Windows
+# TryHackMe - Investigating Windows
 
-- Type: Forensics, 
-- Difficulty: Easy-Medium
-- Tools:
+<fieldset>
+
+<legend>Room Information </legend>
+
+- **Name:**  Investigating Windows
+- **Category:** Forensics
+- **Difficulty:** 
+- **Tools:**
   - Windows default utilities
+- **Skills Learned**:
+  - Windows Forensics
+
+</fieldset>
 
 ## Description
 
 > A windows machine has been hacked, its your job to go investigate this  windows machine and find clues to what the hacker might have done.
 
-## Task 1 - Investigating Windows
+---
 
-Available Users 
+## Task 1: Investigating Windows
+
+Available users 
 
 ![image-20210528004612115](_resources/image-20210528004612115.png)
 
@@ -69,12 +80,16 @@ There is also interesting Firewall rules that allows inbound connection on port 
 
 ![image-20210528020042488](_resources/image-20210528020042488.png)
 
+
+
+---
+
 ## Commands log
 
-cmd
+Cmd
 
 ```
-s
+systeminfo
 net users
 net user [username]
 netstat -ano

@@ -1,13 +1,29 @@
-# THM: h4cked
+# TryHackMe -  h4cked
 
-- Categories: Forensics, boot2root
-- Difficulty: Easy
+<fieldset>
+
+<legend>Room Information</legend>
+
+- **Name:** [link](example.com)
+- **Category:** Forensics
+- **Type**: Challenge, boot2root
+- **Difficulty:** Easy
+- **Tools**:
+  - Wireshark
+  - Hydra
+- **Skills Learned**
+  - Packet Analysis
+  - Packet Tracing
+
+</fieldset>
 
 ## Description
 
 > Find out what happened by analysing a .pcap file and hack your way back into the machine
 
-## Task1 -  Oh no! We've been hacked! 
+---
+
+## Task1:  Oh no! We've been hacked! 
 
 The attacker is bruteforcing FTP, trying to guess user jenny's password.
 
@@ -37,7 +53,7 @@ The attacker escalating to user jenny and then to root straightly via `sudo su`.
 
 ![image-20210527232435246](_resources/image-20210527232435246.png)
 
-## Task 2 -  Hack your way back into the machine
+## Task 2: Hack your way back into the machine
 
 Jenny password has ben changed to `987654321`.
 
