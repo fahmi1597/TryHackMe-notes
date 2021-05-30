@@ -4,7 +4,7 @@
 
 <legend>Room Information</legend>
 
-- **Name:** [link](example.com)
+- **Name:** [RootMe](https://tryhackme.com/room/rrootme)
 - **Category:** boot2root
 - **Type**: Challenge/CTF
 - **Difficulty:** Easy
@@ -19,7 +19,7 @@
 
 ## Description
 
-> Lorem ipsum ...
+> A ctf for beginners, can you root me?
 
 ---
 
